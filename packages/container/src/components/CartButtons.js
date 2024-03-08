@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 function CartButtons() {
   const { total_items, clearCart } = useCartContext();
   const { loginWithRedirect, myUser, logout } = useUserContext();
-  // comment to trigger deploy
+  // comment to trigger deploy again
 
   return (
     <Box
