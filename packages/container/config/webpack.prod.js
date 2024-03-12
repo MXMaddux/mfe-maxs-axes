@@ -7,6 +7,9 @@ const domain = process.env.PRODUCTION_DOMAIN;
 
 const prodConfig = {
   mode: "production",
+  optimization: {
+    splitChunks: false,
+  },
   output: {
     filename: "[name].[contenthash].js",
     publicPath: "/container/latest/",

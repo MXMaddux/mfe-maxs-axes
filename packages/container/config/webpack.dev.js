@@ -16,6 +16,9 @@ const devConfig = {
   plugins: [
     new ModuleFederationPlugin({
       name: "container",
+      optimization: {
+        splitChunks: false,
+      },
       remotes: {
         cart: "cart@http://localhost:8081/remoteEntry.js",
         navbar: "navbar@http://localhost:8082/remoteEntry.js",
