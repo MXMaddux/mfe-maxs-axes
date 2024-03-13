@@ -1,9 +1,8 @@
 const { merge } = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 const commonConfig = require("./webpack.common");
-const { ModuleFederationPlugin } = require("webpack").container;
 const packageJson = require("../package.json");
-const { dependencies } = require("webpack");
 
 const devConfig = {
   mode: "development",
@@ -14,29 +13,16 @@ const devConfig = {
     },
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: "./public/index.html",
-    }),
     new ModuleFederationPlugin({
-      name: "cart",
+      name: "marketing",
       filename: "remoteEntry.js",
       exposes: {
         "./CartApp": "./src/bootstrap",
       },
-      shared: [
-        packageJson.dependencies,
-
-        {
-          react: { singleton: true, requiredVersion: "18.2.0" }, // Specify your React version
-          "react-dom": { singleton: true, requiredVersion: "18.2.0" },
-          "@mui/material": {
-            singleton: true,
-            eager: false,
-            requiredVersion: "^5.15.10",
-          }, // Adjust according to your Material UI version
-          // Any other shared dependencies...
-        },
-      ],
+      shared: packageJson.dependencies,
+    }),
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
     }),
   ],
 };
